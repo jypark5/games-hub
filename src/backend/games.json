@@ -1,7 +1,19 @@
 [
   {
     "id": 1,
-    "icon": "../assets/2048-icon.png",
+    "icon": "/2048-icon.png",
+    "name": 2048,
+    "description": "Try to make 2048 using powers of 2!"
+  },
+  {
+    "id": 2,
+    "icon": "/2048-icon.png",
+    "name": 2048,
+    "description": "Try to make 2048 using powers of 2!"
+  },
+  {
+    "id": 3,
+    "icon": "/2048-icon.png",
     "name": 2048,
     "description": "Try to make 2048 using powers of 2!"
   }
