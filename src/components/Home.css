@@ -1,0 +1,4 @@
+.game-selection-grid {
+  display: flex;
+  justify-content: space-around;
+}
