@@ -1,7 +1,7 @@
 .nav-bar {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(100, 220, 224);
+  background-color: rgb(168, 204, 228);
   height: 60px;
   align-items: center;
   font-size: 20px;
@@ -12,6 +12,11 @@
   display: flex;
   flex: 1;
   margin-left: 10px;
+}
+
+.games-link {
+  text-decoration: none;
+  color: black;
 }
 
 .right-section {

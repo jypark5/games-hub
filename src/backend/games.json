@@ -3,30 +3,21 @@
     "id": 1,
     "icon": "/2048-icon.png",
     "name": "2048",
-    "description": "Try to make 2048 using powers of 2!"
+    "description": "Try to make 2048 using powers of 2!",
+    "path": "/2048"
   },
   {
     "id": 2,
-    "icon": "/2048-icon.png",
+    "icon": "/wordle-icon.png",
     "name": "Wordle",
-    "description": "Can you guess today's word?"
+    "description": "Can you guess today's word?",
+    "path": "/wordle"
   },
   {
     "id": 3,
-    "icon": "/2048-icon.png",
-    "name": 2048,
-    "description": "Try to make 2048 using powers of 2!"
-  },
-  {
-    "id": 4,
-    "icon": "/2048-icon.png",
-    "name": 2048,
-    "description": "Try to make 2048 using powers of 2!"
-  },
-  {
-    "id": 5,
-    "icon": "/2048-icon.png",
-    "name": 2048,
-    "description": "Try to make 2048 using powers of 2!"
+    "icon": "/snake-icon.png",
+    "name": "Snake",
+    "description": "See how much food your snake can eat!",
+    "path": "/snake"
   }
 ]
