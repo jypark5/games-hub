@@ -6,7 +6,7 @@ const NUM_GUESSES = 7;
 
 export const Wordle = () => {
   const [solution] = useState("castle");
-  const [guesses, setGuesses] = useState(["fishes", "cashew", "castle"]);
+  const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
 
   useEffect(() => {
