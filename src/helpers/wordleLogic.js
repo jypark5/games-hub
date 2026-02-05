@@ -9,6 +9,7 @@ export const checkWord = (guess, solution) => {
   for (const index in guessUpper) {
     if (guessUpper[index] === solutionUpper[index]) {
       result[index] = "green";
+      solutionLetters[index] = null;
     }
   }
 
@@ -21,7 +22,7 @@ export const checkWord = (guess, solution) => {
 
         // duplicate letter handling, ensuring only the correct number of letters
         // are marked yellow
-        solutionLetters[index] = null;
+        solutionLetters[matchingIndex] = null;
       }
     }
   }

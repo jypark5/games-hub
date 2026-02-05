@@ -8,7 +8,7 @@ export const Wordle = () => {
 
   const [solution] = useState("castle");
 
-  const [guesses, setGuesses] = useState(["fishes", "cashew"]);
+  const [guesses, setGuesses] = useState(["fishes", "cashew", "castle"]);
 
   // const [currentGuess, setCurrentGuess] = useState("word");
 

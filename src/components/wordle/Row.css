@@ -16,3 +16,27 @@
   align-items: center;
   font-weight: 600;
 }
+
+.cell.green {
+  background-color: rgb(32, 153, 32);
+  color: white;
+  border: none;
+  width: 64px;
+  height: 64px;
+}
+
+.cell.yellow {
+  background-color: #b59f3b;
+  color: white;
+  border: none;
+  width: 64px;
+  height: 64px;
+}
+
+.cell.grey {
+  background-color: rgb(71, 71, 71);
+  color: white;
+  border: none;
+  width: 64px;
+  height: 64px;
+}
