@@ -1,18 +1,18 @@
 import './Row.css';
 import { NUM_LETTERS, checkWord } from "../../helpers/wordleLogic";
 
-export const Row = ({ guess, solution }) => {
+export const Row = ({ guess, solution, isEntered }) => {
   const tiles = [];
 
   let statuses = [];
-  if (guess.length === NUM_LETTERS) {
+  if (guess.length === NUM_LETTERS && isEntered) {
     statuses = checkWord(guess, solution);
   }
 
   for (let i = 0; i < NUM_LETTERS; i++) {
     const status = statuses[i] ? statuses[i] : "";
     const letter = guess[i] ? guess[i].toUpperCase() : "";
-    tiles.push({ letter, status });
+    tiles.push({ letter, status, isEntered });
   }
 
 
@@ -22,7 +22,7 @@ export const Row = ({ guess, solution }) => {
         return (
           <div
             key={index}
-            className={`cell ${tile.status}`}
+            className={`cell ${isEntered ? tile.status : ""}`}
           >
             {tile.letter}
           </div>
