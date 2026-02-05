@@ -5,7 +5,7 @@ export const NavBar = () => {
   return (
     <div className="nav-bar">
       <div className="left-section">
-        <Link to="/" class="games-link">
+        <Link to="/" className="games-link">
           All Games
         </Link>
       </div>

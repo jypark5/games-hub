@@ -1,0 +1,18 @@
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.cell {
+  display: flex;
+  border-style: solid;
+  border-color: gray;
+  border-width: 2px;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  margin: 2px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}

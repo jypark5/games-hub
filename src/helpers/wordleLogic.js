@@ -2,17 +2,19 @@ export const NUM_LETTERS = 6
 
 export const checkWord = (guess, solution) => {
   const result = Array(NUM_LETTERS).fill("grey");
-  const solutionLetters = solution.split("");
+  const solutionUpper = solution.toUpperCase();
+  const solutionLetters = solutionUpper.split("");
+  const guessUpper = guess.toUpperCase()
 
-  for (const index in guess) {
-    if (guess[index] === solution[index]) {
+  for (const index in guessUpper) {
+    if (guessUpper[index] === solutionUpper[index]) {
       result[index] = "green";
     }
   }
 
-  for (const index in guess) {
+  for (const index in guessUpper) {
     if (result[index] !== "green") {
-      const matchingIndex = solutionLetters.indexOf(guess[index]);
+      const matchingIndex = solutionLetters.indexOf(guessUpper[index]);
 
       if (matchingIndex !== -1) {
         result[index] = "yellow"
