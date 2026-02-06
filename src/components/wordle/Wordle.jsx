@@ -1,6 +1,7 @@
 import { Row } from './Row';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import sixLetterListFullRaw from '../../assets/six-letter-words.txt?raw';
+import './Wordle.css';
 
 const NUM_GUESSES = 7;
 export const NUM_LETTERS = 6;
@@ -13,6 +14,19 @@ export const Wordle = () => {
   });
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
+  const [message, setMessage] = useState("");
+  const timerRef = useRef(null);
+
+  const showMessage = (msg) => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    setMessage(msg);
+    timerRef.current = setTimeout(() => {
+      setMessage("");
+      timerRef.current = null;
+    }, 2000);
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -24,7 +38,8 @@ export const Wordle = () => {
             setGuesses([...guesses, currentGuess]);
             setCurrentGuess("");
           } else {
-            alert("not in list bozo");
+            // alert("not in list bozo");
+            showMessage("Not in word list :(");
           }
         }
         if (guesses.length === NUM_GUESSES - 1) {
@@ -47,24 +62,29 @@ export const Wordle = () => {
   }, [guesses, currentGuess]);
 
   return (
-    <div className="wordle-grid">
-      {
-        [...Array(NUM_GUESSES)].map((_, index) => {
+    <div className="wordle-container">
+      <div className="wordle-grid">
+        {
+          [...Array(NUM_GUESSES)].map((_, index) => {
 
-          return (
-            <Row 
-              key={index}
-              guess={
-                guesses[index] ? guesses[index] : 
-                index === guesses.length ? currentGuess : 
-                ""
-              }
-              solution={solution}
-              isEntered={index < guesses.length}
-            />
-          );
-        })
-      }
+            return (
+              <Row 
+                key={index}
+                guess={
+                  guesses[index] ? guesses[index] : 
+                  index === guesses.length ? currentGuess : 
+                  ""
+                }
+                solution={solution}
+                isEntered={index < guesses.length}
+              />
+            );
+          })
+        }
+      </div>
+      {message && <div className="wordle-message">
+        {message}
+      </div>}
     </div>
   );
 }
