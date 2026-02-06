@@ -9,11 +9,11 @@
   border-style: solid;
   border-color: gray;
   border-width: 2px;
-  width: 3.5%;
+  width: 64px;
   aspect-ratio: 1/1;
   /* height: 60px; */
   font-size: 2vw;
-  margin: 0.08%;
+  margin: 2px;
   justify-content: center;
   align-items: center;
   font-weight: 600;
@@ -23,7 +23,7 @@
   background-color: rgb(32, 153, 32);
   color: white;
   border: none;
-  width: 3.5%;
+  width: 64px;
   aspect-ratio: 1/1;
   /* height: 64px; */
 }
@@ -32,7 +32,7 @@
   background-color: #b59f3b;
   color: white;
   border: none;
-  width: 3.5%;
+  width: 64px;
   aspect-ratio: 1/1;
   /* height: 64px; */
 }
@@ -41,7 +41,23 @@
   background-color: rgb(71, 71, 71);
   color: white;
   border: none;
-  width: 3.5%;
+  width: 64px;
   aspect-ratio: 1/1;
   /* height: 64px; */
+}
+
+@media (max-width: 1900px) {
+  .cell {
+    width: 45px;
+    font-size: 24px;
+    margin: 2px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cell {
+    width: 35px;
+    font-size: 20px;
+    margin: 2px;
+  }
 }
