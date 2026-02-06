@@ -1,4 +1,4 @@
-export const NUM_LETTERS = 6
+import { NUM_LETTERS } from "../components/wordle/Wordle";
 
 export const checkWord = (guess, solution) => {
   const result = Array(NUM_LETTERS).fill("grey");

@@ -1,5 +1,6 @@
 import './Row.css';
-import { NUM_LETTERS, checkWord } from "../../helpers/wordleLogic";
+import { checkWord } from '../../helpers/wordleLogic';
+import { NUM_LETTERS } from './Wordle';
 
 export const Row = ({ guess, solution, isEntered }) => {
   const tiles = [];

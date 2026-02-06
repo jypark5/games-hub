@@ -1,13 +1,13 @@
-import { NUM_LETTERS } from '../../helpers/wordleLogic';
 import { Row } from './Row';
 import { useEffect, useState } from 'react';
 import sixLetterListFullRaw from '../../assets/six-letter-words.txt?raw';
 
 const NUM_GUESSES = 7;
+export const NUM_LETTERS = 6;
 
 export const Wordle = () => {
+  const wordsArrayFull = sixLetterListFullRaw.split('\n').map(word => word.trim());
   const [solution] = useState(() => {
-    const wordsArrayFull = sixLetterListFullRaw.split('\n').map(word => word.trim())
     const randomIndex = Math.floor(Math.random() * wordsArrayFull.length);
     return wordsArrayFull[randomIndex];
   });
@@ -20,8 +20,12 @@ export const Wordle = () => {
 
       if (key === 'Enter') {
         if (currentGuess.length === NUM_LETTERS) {
-          setGuesses([...guesses, currentGuess]);
-          setCurrentGuess("");
+          if (wordsArrayFull.includes(currentGuess)) {
+            setGuesses([...guesses, currentGuess]);
+            setCurrentGuess("");
+          } else {
+            alert("not in list bozo");
+          }
         }
         if (guesses.length === NUM_GUESSES - 1) {
           alert(`The answer was ${solution}`);
