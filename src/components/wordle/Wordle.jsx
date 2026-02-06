@@ -1,11 +1,16 @@
 import { NUM_LETTERS } from '../../helpers/wordleLogic';
 import { Row } from './Row';
 import { useEffect, useState } from 'react';
+import sixLetterListFullRaw from '../../assets/six-letter-words.txt?raw';
 
 const NUM_GUESSES = 7;
 
 export const Wordle = () => {
-  const [solution] = useState("castle");
+  const [solution] = useState(() => {
+    const wordsArrayFull = sixLetterListFullRaw.split('\n').map(word => word.trim())
+    const randomIndex = Math.floor(Math.random() * wordsArrayFull.length);
+    return wordsArrayFull[randomIndex];
+  });
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
 
@@ -14,9 +19,12 @@ export const Wordle = () => {
       const key = event.key;
 
       if (key === 'Enter') {
-        if (currentGuess.length === 6) {
+        if (currentGuess.length === NUM_LETTERS) {
           setGuesses([...guesses, currentGuess]);
           setCurrentGuess("");
+        }
+        if (guesses.length === NUM_GUESSES - 1) {
+          alert(`The answer was ${solution}`);
         }
       }
 
@@ -24,13 +32,10 @@ export const Wordle = () => {
         setCurrentGuess(currentGuess.slice(0, -1));
       }
 
-      if (/^[a-zA-Z]$/.test(key) && currentGuess.length < 6) {
+      if (/^[a-zA-Z]$/.test(key) && currentGuess.length < NUM_LETTERS) {
         setCurrentGuess(currentGuess.concat(key));
       }
     }
-
-    console.log(`current guess: ${currentGuess}`);
-    console.log(guesses);
 
     window.addEventListener("keydown", handleKeyDown);
 
