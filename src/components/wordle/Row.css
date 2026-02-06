@@ -23,27 +23,21 @@
   background-color: rgb(32, 153, 32);
   color: white;
   border: none;
-  width: 64px;
   aspect-ratio: 1/1;
-  /* height: 64px; */
 }
 
 .cell.yellow {
   background-color: #b59f3b;
   color: white;
   border: none;
-  width: 64px;
   aspect-ratio: 1/1;
-  /* height: 64px; */
 }
 
 .cell.grey {
   background-color: rgb(71, 71, 71);
   color: white;
   border: none;
-  width: 64px;
   aspect-ratio: 1/1;
-  /* height: 64px; */
 }
 
 @media (max-width: 1900px) {
