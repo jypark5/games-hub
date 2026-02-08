@@ -12,9 +12,11 @@ export const Wordle = () => {
     const randomIndex = Math.floor(Math.random() * wordsArrayFull.length);
     return wordsArrayFull[randomIndex];
   });
+  // const [solution] = useState("Castle");
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [message, setMessage] = useState("");
+  const [isGameOver, setIsGameOver] = useState(false);
   const timerRef = useRef(null);
 
   const showMessage = (msg) => {
@@ -30,6 +32,8 @@ export const Wordle = () => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      if (isGameOver) return;
+
       const key = event.key;
 
       if (key === 'Enter') {
@@ -37,8 +41,11 @@ export const Wordle = () => {
           if (wordsArrayFull.includes(currentGuess)) {
             setGuesses([...guesses, currentGuess]);
             setCurrentGuess("");
+            if (currentGuess.toLowerCase() === solution.toLowerCase()) {
+              setIsGameOver(true);
+              showMessage("You win!");
+            }
           } else {
-            // alert("not in list bozo");
             showMessage("Not in word list :(");
           }
         }

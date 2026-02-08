@@ -218,6 +218,7 @@ anyhow
 aorist
 aortic
 apercu
+apples
 aphids
 apices
 aplite
