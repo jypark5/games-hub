@@ -1,5 +1,6 @@
 import { Row } from './Row';
 import { useEffect, useState, useRef } from 'react';
+import { getRandomWord } from '../../helpers/wordleLogic';
 import sixLetterListFullRaw from '../../assets/six-letter-words.txt?raw';
 import './Wordle.css';
 
@@ -9,8 +10,7 @@ export const NUM_LETTERS = 6;
 export const Wordle = () => {
   const wordsArrayFull = sixLetterListFullRaw.split('\n').map(word => word.trim());
   const [solution] = useState(() => {
-    const randomIndex = Math.floor(Math.random() * wordsArrayFull.length);
-    return wordsArrayFull[randomIndex];
+    return getRandomWord(wordsArrayFull);
   });
   // const [solution] = useState("Castle");
   const [guesses, setGuesses] = useState([]);
@@ -44,6 +44,7 @@ export const Wordle = () => {
             if (currentGuess.toLowerCase() === solution.toLowerCase()) {
               setIsGameOver(true);
               showMessage("You win!");
+              return;
             }
           } else {
             showMessage("Not in word list :(");

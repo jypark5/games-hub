@@ -29,3 +29,8 @@ export const checkWord = (guess, solution) => {
   
   return result;
 }
+
+export const getRandomWord = (words) => {
+  const randomIndex = Math.floor(Math.random() * words.length);
+  return words[randomIndex];
+}
