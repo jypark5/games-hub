@@ -41,17 +41,9 @@ export const Wordle = () => {
           if (wordsArrayFull.includes(currentGuess)) {
             setGuesses([...guesses, currentGuess]);
             setCurrentGuess("");
-            if (currentGuess.toLowerCase() === solution.toLowerCase()) {
-              setIsGameOver(true);
-              showMessage("You win!");
-              return;
-            }
           } else {
             showMessage("Not in word list :(");
           }
-        }
-        if (guesses.length === NUM_GUESSES - 1) {
-          alert(`The answer was ${solution}`);
         }
       }
 
@@ -67,7 +59,30 @@ export const Wordle = () => {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [guesses, currentGuess]);
+  }, [guesses, currentGuess, solution, isGameOver, wordsArrayFull]);
+
+  useEffect(() => {
+    if (guesses.length === 0) return;
+
+    const latestGuess = guesses[guesses.length - 1];
+
+    const timer = setTimeout(() => {
+      // Win
+      if (latestGuess.toLowerCase() === solution.toLowerCase()) {
+        setIsGameOver(true);
+        showMessage("You win!");
+        return;
+      }
+      // Loss
+      else if (guesses.length === NUM_GUESSES) {
+        setIsGameOver(true);
+        showMessage(`${solution.toUpperCase()}`);
+      }
+    }, 5);
+
+    return () => clearTimeout(timer);
+
+  }, [guesses, solution]);
 
   return (
     <div className="wordle-container">
