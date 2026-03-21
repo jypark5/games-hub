@@ -25,27 +25,3 @@
   70% { opacity: 1; }
   100% { opacity: 0; }
 }
-
-.buttons-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  width: 100%;
-  max-width: 250px;
-  font-size: 15px;
-}
-
-.buttons-container button {
-  font-size: 15px;
-  padding: 5px;
-}
-
-@media (max-width: 600px) {
-  .buttons-container {
-    max-width: 200px;
-  }
-
-  .buttons-container button {
-    font-size: 12px;
-  }
-}
