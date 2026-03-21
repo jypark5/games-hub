@@ -1,0 +1,70 @@
+.tile {
+  display: flex;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: gray;
+  border-width: 2px;
+
+  width: 64px;
+  aspect-ratio: 1/1;
+
+  font-size: 2vw;
+  margin: 2px;
+
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.tile.flip {
+  animation: flip 0.6s ease forwards;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+.tile.green {
+  background-color: rgb(32, 153, 32);
+  color: white;
+  border: none;
+}
+
+.tile.yellow {
+  background-color: #b59f3b;
+  color: white;
+  border: none;
+}
+
+.tile.grey {
+  background-color: rgb(71, 71, 71);
+  color: white;
+  border: none;
+}
+
+@media (max-width: 1900px) {
+  .tile {
+    width: 45px;
+    font-size: 24px;
+    margin: 2px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tile {
+    width: 35px;
+    font-size: 20px;
+    margin: 2px;
+  }
+}

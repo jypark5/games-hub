@@ -1,9 +1,9 @@
-import './ResetButton.css';
+import './WordleButton.css';
 
 export const ResetButton = ({ onClick }) => {
   return (
     <button 
-      className="reset-button" 
+      className="wordle-button" 
       onClick={onClick}
     >
       Restart Game
