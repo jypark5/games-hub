@@ -38,10 +38,10 @@ export const Wordle = () => {
             toast.error("Not in word list :(");
           }
         }
-        setIsAnimating(true);
-        if (animationTimerRef.current) {
-          clearTimeout(animationTimerRef.current);
-        }
+        // setIsAnimating(true);
+        // if (animationTimerRef.current) {
+        //   clearTimeout(animationTimerRef.current);
+        // }
 
         animationTimerRef.current = setTimeout(() => {
           setIsAnimating(false);
