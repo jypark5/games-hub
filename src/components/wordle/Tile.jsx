@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Tile.css';
 
-export const Tile = ({ letter, status, isEntered, index }) => {
+export const Tile = ({ letter, status, isEntered, index, skipFlipAnimation = false }) => {
   const [isFlipping, setIsFlipping] = useState(false);
-  const [showStatus, setShowStatus] = useState(false);
+  const [showStatus, setShowStatus] = useState(() => Boolean(skipFlipAnimation && isEntered));
 
   useEffect(() => {
     if (!isEntered) return;
+    if (skipFlipAnimation) return;
 
     const delay = index * 300;
 
@@ -22,7 +23,7 @@ export const Tile = ({ letter, status, isEntered, index }) => {
       clearTimeout(flipTimer);
       clearTimeout(colorTimer);
     };
-  }, [isEntered, index]);
+  }, [isEntered, index, skipFlipAnimation]);
 
   return (
     <div

@@ -5,23 +5,38 @@ import { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { getRandomWord } from '../../helpers/wordleLogic';
 import sixLetterListFullRaw from '../../assets/six-letter-words.txt?raw';
+import { useAuth } from '../../hooks/useAuth';
+import {
+  loadWordlePersistedState,
+  saveWordlePersistedState,
+  buildWordleResultSignature,
+  getLastSyncedWordleSignature,
+  setLastSyncedWordleSignature,
+} from '../../lib/wordleStorage';
+import { submitGameResult } from '../../lib/submitGameResult';
 import './Wordle.css';
 
 const NUM_GUESSES = 7;
 export const NUM_LETTERS = 6;
 const wordsArrayFull = sixLetterListFullRaw.split('\n').map(word => word.trim());
 
+const initialPersisted = loadWordlePersistedState();
+
 export const Wordle = () => {
+  const { user, supabase, configured } = useAuth();
   const [solution, setSolution] = useState(() => {
-    return getRandomWord(wordsArrayFull);
+    return initialPersisted?.solution ?? getRandomWord(wordsArrayFull);
   });
-  // const [solution] = useState("Castle");
-  const [guesses, setGuesses] = useState([]);
+  const [guesses, setGuesses] = useState(() => initialPersisted?.guesses ?? []);
   const [currentGuess, setCurrentGuess] = useState("");
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [gameKey, setGameKey] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(() => initialPersisted?.isGameOver ?? false);
+  const [gameKey, setGameKey] = useState(() => initialPersisted?.gameKey ?? 0);
+  const [skipFlipForRowCount, setSkipFlipForRowCount] = useState(
+    () => initialPersisted?.guesses?.length ?? 0,
+  );
   const [isAnimating, setIsAnimating] = useState(false);
   const animationTimerRef = useRef(null);
+  const cloudSyncAttemptRef = useRef(null);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -38,10 +53,6 @@ export const Wordle = () => {
             toast.error("Not in word list :(");
           }
         }
-        // setIsAnimating(true);
-        // if (animationTimerRef.current) {
-        //   clearTimeout(animationTimerRef.current);
-        // }
 
         animationTimerRef.current = setTimeout(() => {
           setIsAnimating(false);
@@ -97,6 +108,41 @@ export const Wordle = () => {
     };
   }, []);
 
+  useEffect(() => {
+    saveWordlePersistedState({ solution, guesses, isGameOver, gameKey });
+  }, [solution, guesses, isGameOver, gameKey]);
+
+  useEffect(() => {
+    if (!isGameOver || !user || !supabase || !configured) return;
+
+    const lastGuess = guesses[guesses.length - 1];
+    const won =
+      Boolean(lastGuess) && lastGuess.toLowerCase() === solution.toLowerCase();
+    const signature = buildWordleResultSignature({
+      solution,
+      guesses,
+      isWin: won,
+    });
+
+    if (getLastSyncedWordleSignature() === signature) return;
+    if (cloudSyncAttemptRef.current === signature) return;
+    cloudSyncAttemptRef.current = signature;
+
+    submitGameResult(supabase, user.id, 'wordle', guesses.length, {
+      won,
+      num_letters: NUM_LETTERS,
+      max_guesses: NUM_GUESSES,
+      guesses: guesses.map((g) => g.toLowerCase()),
+    }).then(({ error }) => {
+      if (!error) {
+        setLastSyncedWordleSignature(signature);
+      } else {
+        cloudSyncAttemptRef.current = null;
+        console.error('Failed to save Wordle result:', error.message);
+      }
+    });
+  }, [isGameOver, user, supabase, configured, guesses, solution]);
+
   const revealSolution = (event) => {
     if (event && event.currentTarget) {
       event.currentTarget.blur();
@@ -119,10 +165,9 @@ export const Wordle = () => {
       animationTimerRef.current = null;
     }
 
+    setSkipFlipForRowCount(0);
     setGameKey(prev => prev + 1); // Force remount
   }
-
-  console.log("Current Guesses Array:", guesses);
 
   return (
     <div className="wordle-container">
@@ -140,6 +185,7 @@ export const Wordle = () => {
                 }
                 solution={solution}
                 isEntered={index < guesses.length}
+                skipFlipAnimation={index < skipFlipForRowCount}
               />
             );
           })

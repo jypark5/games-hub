@@ -3,7 +3,7 @@ import { checkWord } from '../../helpers/wordleLogic';
 import { NUM_LETTERS } from './Wordle';
 import { Tile } from './Tile';
 
-export const Row = ({ guess, solution, isEntered }) => {
+export const Row = ({ guess, solution, isEntered, skipFlipAnimation = false }) => {
   let statuses = [];
 
   if (guess.length === NUM_LETTERS && isEntered) {
@@ -23,6 +23,7 @@ export const Row = ({ guess, solution, isEntered }) => {
             status={status}
             isEntered={isEntered}
             index={index}
+            skipFlipAnimation={skipFlipAnimation}
           />
         );
       })}

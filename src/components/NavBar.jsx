@@ -10,9 +10,9 @@ export const NavBar = () => {
         </Link>
       </div>
       <div className="right-section">
-        <div className="profile-icon-container">
-          profile
-        </div>
+        <Link to="/account" className="profile-icon-container">
+          Account
+        </Link>
         <div className="settings-icon-container">
           settings
         </div>
