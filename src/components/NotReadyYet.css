@@ -1,0 +1,42 @@
+.not-ready-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 16px 40px;
+  text-align: center;
+}
+
+.not-ready-title {
+  margin: 0 0 12px;
+  font-size: 32px;
+}
+
+.not-ready-text {
+  margin: 0 0 22px;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.not-ready-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.not-ready-link {
+  text-decoration: none;
+  background-color: #5696a1;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.not-ready-link:hover {
+  background-color: #76b5c0;
+}
+
+.not-ready-redirecting {
+  margin-top: 14px;
+  font-size: 14px;
+  opacity: 0.75;
+}
+

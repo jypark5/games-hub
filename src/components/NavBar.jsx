@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import './NavBar.css';
 import profileIcon from '../assets/profile-icon.png';
-import settingsIcon from '../assets/settings-icon.png';
+import settingsIcon from '../assets/settings-icon.webp';
 
 export const NavBar = () => {
   return (
