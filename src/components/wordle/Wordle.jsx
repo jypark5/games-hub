@@ -1,7 +1,7 @@
 import { Row } from './Row';
 import { ResetButton } from'./ResetButton';
 import { GiveUpButton } from'./GiveUpButton';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { getRandomWord } from '../../helpers/wordleLogic';
 import sixLetterListFullRaw from '../../assets/six-letter-words.txt?raw';
@@ -15,6 +15,7 @@ import {
 } from '../../lib/wordleStorage';
 import { submitGameResult } from '../../lib/submitGameResult';
 import './Wordle.css';
+import { Keyboard } from './keyboard/Keyboard';
 
 const NUM_GUESSES = 7;
 export const NUM_LETTERS = 6;
@@ -72,6 +73,86 @@ export const Wordle = () => {
 
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [guesses, currentGuess, solution, isGameOver, isAnimating]);
+
+  const getGuessStatusesForKeyboard = (guess, currentSolution) => {
+    // Mirrors the logic in `checkWord` but keeps Wordle -> helper dependencies simple
+    // so this file doesn't need to import `checkWord` (which would create a cycle).
+    const result = Array(NUM_LETTERS).fill('grey');
+    const solutionUpper = currentSolution.toUpperCase();
+    const solutionLetters = solutionUpper.split('');
+    const guessUpper = guess.toUpperCase();
+
+    for (const index in guessUpper) {
+      if (guessUpper[index] === solutionUpper[index]) {
+        result[index] = 'green';
+        solutionLetters[index] = null;
+      }
+    }
+
+    for (const index in guessUpper) {
+      if (result[index] !== 'green') {
+        const matchingIndex = solutionLetters.indexOf(guessUpper[index]);
+        if (matchingIndex !== -1) {
+          result[index] = 'yellow';
+          solutionLetters[matchingIndex] = null;
+        }
+      }
+    }
+
+    return result;
+  };
+
+  const keyboardLetterStatuses = useMemo(() => {
+    const map = {};
+
+    for (const guess of guesses) {
+      if (!guess || guess.length !== NUM_LETTERS) continue;
+      const statuses = getGuessStatusesForKeyboard(guess, solution);
+
+      for (let i = 0; i < NUM_LETTERS; i += 1) {
+        const letter = guess[i].toUpperCase();
+        const status = statuses[i];
+
+        if (status === 'green') map[letter] = 'green';
+        else if (status === 'yellow' && map[letter] !== 'green') map[letter] = 'yellow';
+        else if (status === 'grey' && map[letter] == null) map[letter] = 'grey';
+      }
+    }
+
+    return map;
+  }, [guesses, solution]);
+
+  const handleKeyboardKeyPress = (key) => {
+    if (isGameOver || isAnimating) return;
+
+    if (key === 'ENTER') {
+      if (currentGuess.length !== NUM_LETTERS) {
+        toast.error('Not enough letters :(');
+        return;
+      }
+      if (wordsArrayFull.includes(currentGuess)) {
+        setGuesses((prev) => [...prev, currentGuess]);
+        setCurrentGuess('');
+      } else {
+        toast.error('Not in word list :(');
+      }
+
+      animationTimerRef.current = setTimeout(() => {
+        setIsAnimating(false);
+        animationTimerRef.current = null;
+      }, NUM_LETTERS * 300);
+      return;
+    }
+
+    if (key === 'BACKSPACE') {
+      setCurrentGuess((prev) => prev.slice(0, -1));
+      return;
+    }
+
+    if (/^[A-Z]$/.test(key) && currentGuess.length < NUM_LETTERS) {
+      setCurrentGuess((prev) => prev.concat(key.toLowerCase()));
+    }
+  };
 
   useEffect(() => {
     if (guesses.length === 0) return;
@@ -190,6 +271,12 @@ export const Wordle = () => {
           })
         }
       </div>
+
+      <Keyboard
+        letterStatuses={keyboardLetterStatuses}
+        onKeyPress={handleKeyboardKeyPress}
+        disabled={isGameOver || isAnimating}
+      />
 
       <ToastContainer 
         position="top-center"

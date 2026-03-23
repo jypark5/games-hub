@@ -1,0 +1,69 @@
+.wordle-keyboard {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 16px;
+  padding: 0 8px;
+}
+
+.wordle-keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.wordle-key {
+  height: 58px;
+  width: 43px;
+  border: none;
+  border-radius: 6px;
+  background-color: #d3d6da;
+  color: #1a1a1b;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.wordle-key--wide {
+  flex: 1.4 1 0;
+}
+
+
+
+.wordle-key:disabled,
+.wordle-key--disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.wordle-key__icon {
+  height: 45px;
+}
+
+.wordle-key--green {
+  background-color: rgb(32, 153, 32);
+  color: white;
+}
+
+.wordle-key--yellow {
+  background-color: #b59f3b;
+  color: white;
+}
+
+.wordle-key--grey {
+  background-color: rgb(71, 71, 71);
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .wordle-key {
+    height: 52px;
+    font-size: 16px;
+  }
+}
+

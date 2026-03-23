@@ -19,6 +19,7 @@ function App() {
           <Route path="/" element={<Games gamesInfo={gamesInfo}/>} />
           <Route path="about" element={<About />} />
           <Route path="account" element={<Account />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="wordle" element={<Wordle />} />
         </Routes>
       </BrowserRouter>
