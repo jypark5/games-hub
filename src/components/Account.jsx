@@ -93,9 +93,6 @@ export function Account() {
   return (
     <div className="account-page">
       <h1>Account</h1>
-      <p className="account-hint">
-        Play without signing in — progress is stored locally in your browser. Sign in to sync finished game results across devices.
-      </p>
       <form className="account-form" onSubmit={handleSignIn}>
         <label className="account-label">
           Email

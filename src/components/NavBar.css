@@ -40,3 +40,8 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.profile-icon,
+.settings-icon {
+  width: 40px;
+}

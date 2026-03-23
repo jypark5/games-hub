@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import './NavBar.css';
+import profileIcon from '../assets/profile-icon.png';
+import settingsIcon from '../assets/settings-icon.png';
 
 export const NavBar = () => {
   return (
@@ -11,10 +13,10 @@ export const NavBar = () => {
       </div>
       <div className="right-section">
         <Link to="/account" className="profile-icon-container">
-          Account
+          <img src={profileIcon} alt="Account" className="profile-icon" />
         </Link>
         <Link to="/settings" className="settings-icon-container">
-          settings
+          <img src={settingsIcon} alt="Settings" className="settings-icon" />
         </Link>
       </div>
     </div>
