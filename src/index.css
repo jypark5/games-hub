@@ -6,8 +6,6 @@
   --nav-text: #000000;
 
   --card-bg: rgb(230, 230, 230);
-
-  --key-bg: #d3d6da;
 }
 
 [data-theme='dark'] {
@@ -17,9 +15,7 @@
   --nav-bg: #1a2a35;
   --nav-text: #ffffff;
 
-  --card-bg: #1b1f27;
-
-  --key-bg: #818384;
+  --card-bg: #2d3341;
 }
 
 body {
