@@ -20,19 +20,18 @@ const NUM_GUESSES = 7;
 export const NUM_LETTERS = 6;
 const wordsArrayFull = sixLetterListFullRaw.split('\n').map(word => word.trim());
 
-const initialPersisted = loadWordlePersistedState();
-
 export const Wordle = () => {
   const { user, supabase, configured } = useAuth();
+  const persisted = loadWordlePersistedState();
   const [solution, setSolution] = useState(() => {
-    return initialPersisted?.solution ?? getRandomWord(wordsArrayFull);
+    return persisted?.solution ?? getRandomWord(wordsArrayFull);
   });
-  const [guesses, setGuesses] = useState(() => initialPersisted?.guesses ?? []);
+  const [guesses, setGuesses] = useState(() => persisted?.guesses ?? []);
   const [currentGuess, setCurrentGuess] = useState("");
-  const [isGameOver, setIsGameOver] = useState(() => initialPersisted?.isGameOver ?? false);
-  const [gameKey, setGameKey] = useState(() => initialPersisted?.gameKey ?? 0);
+  const [isGameOver, setIsGameOver] = useState(() => persisted?.isGameOver ?? false);
+  const [gameKey, setGameKey] = useState(() => persisted?.gameKey ?? 0);
   const [skipFlipForRowCount, setSkipFlipForRowCount] = useState(
-    () => initialPersisted?.guesses?.length ?? 0,
+    () => persisted?.guesses?.length ?? 0,
   );
   const [isAnimating, setIsAnimating] = useState(false);
   const animationTimerRef = useRef(null);
