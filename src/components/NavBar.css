@@ -1,7 +1,7 @@
 .nav-bar {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(168, 204, 228);
+  background-color: var(--nav-bg);
   height: 60px;
   align-items: center;
   font-size: 20px;
@@ -16,7 +16,7 @@
 
 .games-link {
   text-decoration: none;
-  color: black;
+  color: var(--nav-text);
 }
 
 .right-section {
@@ -27,7 +27,12 @@
 
 .profile-icon-container {
   text-decoration: none;
-  color: black;
+  color: var(--nav-text);
+}
+
+.settings-icon-container {
+  text-decoration: none;
+  color: var(--nav-text);
 }
 
 .profile-icon-container:hover,

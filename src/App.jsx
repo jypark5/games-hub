@@ -7,6 +7,7 @@ import { NavBar } from './components/NavBar';
 import { Games } from './components/Games';
 import { About } from './components/About';
 import { Account } from './components/Account';
+import { Settings } from './components/Settings';
 import { Wordle } from './components/wordle/Wordle';
 
 function App() {

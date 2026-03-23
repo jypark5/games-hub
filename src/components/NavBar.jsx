@@ -13,9 +13,9 @@ export const NavBar = () => {
         <Link to="/account" className="profile-icon-container">
           Account
         </Link>
-        <div className="settings-icon-container">
+        <Link to="/settings" className="settings-icon-container">
           settings
-        </div>
+        </Link>
       </div>
     </div>
   );

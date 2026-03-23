@@ -17,7 +17,7 @@
   width: 43px;
   border: none;
   border-radius: 6px;
-  background-color: #d3d6da;
+  background-color: var(--key-bg);
   color: #1a1a1b;
   font-weight: 700;
   font-size: 18px;
